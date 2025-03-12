@@ -9,11 +9,6 @@ phases:
 
   build:
     commands:
-      - echo "Setting status..."
-      - |
-        aws codebuild batch-put-test-cases \
-          --report-arn "arn:aws:codebuild:region:account:report-group/project-name" \
-          --test-cases '[{"testName": "sample", "status": "SUCCEEDED"}]'
       - echo "Running tests..."
       - |
         cat << EOF > test_sample.py
