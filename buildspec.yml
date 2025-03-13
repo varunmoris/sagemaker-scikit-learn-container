@@ -23,7 +23,7 @@ phases:
         if [ $CODEBUILD_BUILD_SUCCEEDING = 1 ]; then
           echo "Build succeeded"
         else
-          echo "Build failed"
+          echo "Build failed" # comment
           exit 1
         fi
 
