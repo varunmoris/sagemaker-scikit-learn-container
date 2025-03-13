@@ -21,19 +21,22 @@ phases:
     commands:
       - |
         if [ $CODEBUILD_BUILD_SUCCEEDING = 1 ]; then
-          aws codebuild update-build --id $CODEBUILD_BUILD_ID --build-status SUCCEEDED
+          echo "Build succeeded"
         else
-          aws codebuild update-build --id $CODEBUILD_BUILD_ID --build-status FAILED
+          echo "Build failed"
+          exit 1
         fi
 
 reports:
   status:
-    reports-type: STATUSES
-  scikit-learn-test-status:
+    file-format: JUNITXML
     files:
-      - "test-results.xml"
-    base-directory: .
-    file-format: JunitXml
+      - test-results.xml
+    discard-paths: no
+  scikit-learn-test-status:
+    file-format: JUNITXML
+    files:
+      - test-results.xml
     discard-paths: no
 
 artifacts:
