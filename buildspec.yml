@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  secrets-manager:
+    GITHUB_TOKEN: github-oauth-token-KPUhtC:token
+
 phases:
   install:
     runtime-versions:
@@ -7,6 +11,12 @@ phases:
     commands:
       - pip install pytest
 
+  pre_build:
+    commands:
+      - echo "GitHub Server Type: $GITHUB_SERVER_TYPE"
+      - echo "Token length: ${#GITHUB_TOKEN}"
+      - if [ -z "$GITHUB_TOKEN" ]; then echo "Token is empty"; else echo "Token is not empty"; fi
+      - curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user
 
   build:
     commands:
